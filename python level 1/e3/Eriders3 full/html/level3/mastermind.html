@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Mastermind</title>
+    <link href="../../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+		<div id="container">
+			<header>
+				<nav>
+					<a href="../../index.html"> <img src="../../images/back.png" alt="Ga terug" id="back"/> </a>
+				</nav>
+				<h1>Mijn JavaScript projecten</h1>
+			</header>
+			<main>
+  <!--  hier wat uitleg over de oefening  -->
+        <p>In het midden van de tekst hieronder staat een lege "unordered list"  .  Die wordt gevuld door de javascript code. </p>p>
+        <p>Verder zijn er nog twee divs:  ééntje voor de controle, genaamd mastermindControle, en ééntje voor de knoppen, genaamd mastermindKnoppen.</p>
+        <p>En dan tenslotte nog één knop (link) met als id controleerCode</p>
+<!--   einde uitleg  -->
+        
+    <!-- in deze div gaan we onze oefening maken, zet hier de tags die je nodig hebt -->
+    <div class="demo_area">
+      
+<h1>Mastermind</h1>
+        <p>Kan jij de code raden? Belangrijk: er kunnen <strong>geen dubbele kleuren</strong> voorkomen in de code! </p>
+        <p>De kleuren waaruit je kan kiezen zijn:</p>
+        <!--  in onderstaande "unordered list  ( ul )" gaan we door javascript de kleuren laten invullen  -->
+        <ul id="kleuren"></ul>
+        <p>Pas op: geef de kleuren in <strong>met hoofdletter</strong>, anders zal het niet werken! </p>
+
+        <div id="mastermindControle"></div>
+        <div id="mastermindKnoppen"></div> 
+        <a class="myButton" id="controleerCode">Controleer</a>      
+    </div>
+    <!--  hier eindigt onze oefen-div -->
+
+        
+			</main>
+			<footer>&copy; 2022 CodeFever</footer>
+		</div>
+
+    
+    <!--  zorg dat je naar het juiste javascript bestand linkt !! -->
+    <script src="../../js/level3/mastermind.js"></script>
+  </body>
+</html>

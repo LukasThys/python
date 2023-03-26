@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Galgje</title>
+    <link href="../../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+		<div id="container">
+			<header>
+				<nav>
+					<a href="../../index.html"> <img src="../../images/back.png" alt="Ga terug" id="back"/> </a>
+				</nav>
+				<h1>Mijn JavaScript projecten</h1>
+			</header>
+			<main>
+  <!--  hier wat uitleg over de oefening  -->
+        <p>Dit is een vrij simpel spel.  Het enige wat we nodig hebben is:</p>
+          <ul>
+            <li>een div met id "contentGalgje"</li>
+            <li>een stukje tekst over hoeveel keer de speler nog mag raden</li>
+            <li>in dat stukje tekst een "strong" tag met id "aantalFout"</li>
+            <li>een knop  (link!!) met id "knopLetter"</li> 
+            <li>een knop  (link!!) met id "knopWoord"</li>
+          </ul>
+         <p>De tekst op de knoppen mag je zelf kiezen, wij stellen voor : "Raad een letter!" en "raad het woord!".</p>
+<!--   einde uitleg  -->
+        
+    <!-- in deze div gaan we onze oefening maken, zet hier de tags die je nodig hebt -->
+    <div class="demo_area">
+<h1>Kan jij het woord raden?</h1>
+        <div id="contentGalgje"></div>
+        
+        <p>Je mag nog <strong id ="aantalFout"></strong> keer fout gokken...</p>
+        
+        <a class="myButton" id="knopLetter">Raad een letter!</a>
+        <a class="myButton" id="knopWoord">Raad het woord!</a> 
+    </div>
+    <!--  hier eindigt onze oefen-div -->
+
+        
+			</main>
+			<footer>&copy; 2022 CodeFever</footer>
+		</div>
+
+    
+    <!--  zorg dat je naar het juiste javascript bestand linkt !! -->
+    <script src="../../js/level3/galgje.js"></script>
+  </body>
+</html>

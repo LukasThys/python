@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Boem !!</title>
+    <link href="../../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+		<div id="container">
+			<header>
+				<nav>
+					<a href="../../index.html"> <img src="../../images/back.png" alt="Ga terug" id="back"/> </a>
+				</nav>
+				<h1>Mijn JavaScript projecten</h1>
+			</header>
+			<main>
+        <h1>Microbit traffic spel!!</h1>
+<p>Aangezien we dit spel geprogrammeerd hebben op een microbit ziet de weergave van de oefening er een beetje anders uit.  We tonen hier drie versies van de oplossing:</p>
+ <h1>Versie 1 : enkel de besturing</h1>
+    <pre><code>
+      //  CodeFever E-Riders level 3, les 6
+//  Game:  Traffic
+
+/**************************************************************************
+  allereerst komt er een stukje code dat direct wordt uitgevoerd bij het opstarten 
+  van de microbit.  Deze code staat niet in een functie, maar gewoon los naast alle functies.
+  Als je in de microbit blocks editor kijkt zie je dat deze code staat in blokje "onStart"
+  ***********************************************************************/
+
+
+//  eerst definiëren we de variabelen
+//  variabele speler is een LedSprite  (uit library Game)
+let speler: game.LedSprite;
+//  alle vijf de tegenliggers (genummerd van nul tot vier) zijn ook ledsprites
+let tegenligger0: game.LedSprite;
+let tegenligger1: game.LedSprite;
+let tegenligger2: game.LedSprite;
+let tegenligger3: game.LedSprite;
+let tegenligger4: game.LedSprite;
+
+//  variabele score zetten we om te beginnen op nul
+let score = 0;
+//  en variabele spelBezig zetten we om te beginnen op false
+let spelBezig = false;
+
+/***********************************************************************
+  in de functie "initialiseer" zetten we enkele variabelen op de juiste waarde om
+  te beginnen.  Dat was ook al gebeurd in het "onStart" blokje, maar een spel 
+  kan ook opnieuw begonnen worden terwijl de microbit aan blijft staan, en dan
+  wordt de onStart-code niet meer uitgevoerd.   Daarom doen we het in de initialiseer
+  functie altijd opnieuw voor de zekerheid.
+  We initialiseer variabele "speler" op een nieuw gecreëerde ledSprite op positie (2,4)
+  De andere initialisaties zijn hetzelfde als in de onStart-code:  score op nul en spelBezig op false
+  ******************************************************************************/
+
+function initialiseer() {
+    speler = game.createSprite(2, 4);
+    score = 0;
+    spelBezig = true;
+}
+
+/***************************************************************************
+Het hoofdprogramma zit in de basic.forever-lus.
+We gaan dus de hele tijd:
+1.  initialiseren
+2.  zolang het spel bezig is  (spelBezig = true) vanalles doen (maar voorlopig enkel pauzeren)
+3.  als het spel niet meer bezig is de score tonen, en gameOver doen.
+****************************************************************************/
+basic.forever(function () {
+    initialiseer();
+    while (spelBezig) {
+       basic.pause(1000);
+    }
+    game.setScore(score);
+    game.gameOver();
+})
+
+/***************************************************************************
+We hebben voor dit spel maar twee controls:  
+  - linkerknop stuurt je auto naar links
+  - rechterknop stuurt je auto naar rechts
+  allebei heel simpel in de "onButtonPressed" met de juiste parameter
+  we werken nu met de X-positie  property van de ledSprite
+  ALS je nog niet op de uiterste positie staat  (0 voor links en 4 voor rechts)
+     DAN verplaats je nog één positie  (min voor links en plus voor rechts)
+***************************************************************************/
+// beweeg naar links
+input.onButtonPressed(Button.A, function () {
+ if (speler.get(LedSpriteProperty.X) > 0) {
+        speler.change(LedSpriteProperty.X, -1);
+    }
+})
+
+//beweeg naar rechts
+input.onButtonPressed(Button.B, function () {
+ if (speler.get(LedSpriteProperty.X) < 4) {
+        speler.change(LedSpriteProperty.X, 1);
+    }
+})
+    </code></pre>
+        
+        <h1>Versie 2:  met één tegenligger</h1>
+
+        <pre><code>
+
+     //  CodeFever E-Riders level 3, les 6
+//  Game:  Traffic
+
+/**************************************************************************
+  allereerst komt er een stukje code dat direct wordt uitgevoerd bij het opstarten 
+  van de microbit.  Deze code staat niet in een functie, maar gewoon los naast alle functies.
+  Als je in de microbit blocks editor kijkt zie je dat deze code staat in blokje "onStart"
+  ***********************************************************************/
+
+
+//  eerst definiëren we de variabelen
+//  variabele speler is een LedSprite  (uit library Game)
+let speler: game.LedSprite;
+//  alle vijf de tegenliggers (genummerd van nul tot vier) zijn ook ledsprites
+let tegenligger0: game.LedSprite;
+let tegenligger1: game.LedSprite;
+let tegenligger2: game.LedSprite;
+let tegenligger3: game.LedSprite;
+let tegenligger4: game.LedSprite;
+
+//  variabele score zetten we om te beginnen op nul
+let score = 0;
+//  en variabele spelBezig zetten we om te beginnen op false
+let spelBezig = false;
+
+/***********************************************************************
+  in de functie "initialiseer" zetten we enkele variabelen op de juiste waarde om
+  te beginnen.  Dat was ook al gebeurd in het "onStart" blokje, maar een spel 
+  kan ook opnieuw begonnen worden terwijl de microbit aan blijft staan, en dan
+  wordt de onStart-code niet meer uitgevoerd.   Daarom doen we het in de initialiseer
+  functie altijd opnieuw voor de zekerheid.
+  We initialiseer variabele "speler" op een nieuw gecreëerde ledSprite op positie (2,4)
+  De andere initialisaties zijn hetzelfde als in de onStart-code:  score op nul en spelBezig op false
+  ******************************************************************************/
+
+function initialiseer() {
+    speler = game.createSprite(2, 4);
+    score = 0;
+    spelBezig = true;
+}
+
+/***************************************************************************
+Het hoofdprogramma zit in de basic.forever-lus.
+We gaan dus de hele tijd:
+1.  initialiseren
+2.  zolang het spel bezig is  (spelBezig = true) vanalles doen
+3.  als het spel niet meer bezig is de score tonen, en gameOver doen.
+****************************************************************************/
+basic.forever(function () {
+    initialiseer();
+    while (spelBezig) {
+       basic.pause(1000);
+    }
+    game.setScore(score);
+    game.gameOver();
+})
+
+/***************************************************************************
+We hebben voor dit spel maar twee controls:  
+  - linkerknop stuurt je auto naar links
+  - rechterknop stuurt je auto naar rechts
+  allebei heel simpel in de "onButtonPressed" met de juiste parameter
+  we werken nu met de X-positie  property van de ledSprite
+  ALS je nog niet op de uiterste positie staat  (0 voor links en 4 voor rechts)
+     DAN verplaats je nog één positie  (min voor links en plus voor rechts)
+***************************************************************************/
+// beweeg naar links
+input.onButtonPressed(Button.A, function () {
+ if (speler.get(LedSpriteProperty.X) > 0) {
+        speler.change(LedSpriteProperty.X, -1);
+    }
+})
+
+//beweeg naar rechts
+input.onButtonPressed(Button.B, function () {
+ if (speler.get(LedSpriteProperty.X) < 4) {
+        speler.change(LedSpriteProperty.X, 1);
+    }
+})
+
+
+/*********************************************************************
+  nu de tegenliggers.  We werken tegenligger0 uit als voorbeeld, de andere 
+  zijn identiek
+  tegenligger0 moet ook DE HELE TIJD, altijd opnieuw, klaargezet worden,
+  en dan zolang het spel bezig is naar beneden vallen en controleren of er een botsing is.
+*********************************************************************/
+// tegenligger0 doet de hele tijd ...
+basic.forever(function () {
+// 1. 100 milliseconden wachten
+  basic.pause(100)
+// 2. een nieuwe tegenligger0 aanmaken met createSprite.  Op positie (0,0)
+  tegenligger0 = game.createSprite(0, 0)
+// 3. dan even wachten, een willekeurige tijd tussen 0 en 5 seconden
+  basic.pause(Math.randomRange(0, 5000))
+// 4.  zolang het spel bezig is ...
+  while (spelBezig == true) {
+	//  4.1 ALS tegenligger0 op de onderste rij is aangekomen (dus als z'n Y-property 4 is) ...
+	if (tegenligger0.get(LedSpriteProperty.Y) == 4) {
+		//  4.1.1 DAN controleren we of de speler en tegenligger0 mekaar raken 
+		//  ALS ze mekaar raken ...
+		if (speler.isTouching(tegenligger0)) {
+			//  4.1.1.1 DAN zetten we het spel stop  (spelBezig wordt false)
+			spelBezig = false
+		} else {
+			//  4.1.1.2 ANDERS verhogen we de score en zetten we tegenligger0 opnieuw klaar
+			score += 1
+			tegenligger0.set(LedSpriteProperty.Y, 0)
+			basic.pause(Math.randomRange(0, 5000))
+		}  
+	} else {
+		// 4.1.2 ANDERS  ( dus als tegenligger0 nog niet op de onderste rij is)
+		//   gaan we tegenligger0 1 positie naar onder verplaatsen  ( y-property verhogen)
+		tegenligger0.change(LedSpriteProperty.Y, 1)
+		//    en daarna een halve seconde wachten, anders valt ie te snel
+		basic.pause(500)
+	}
+  }
+})
+
+     
+        </code></pre>
+
+        <h1>Versie 3:  met alle tegenliggers</h1>
+
+        <pre><code>
+
+//  CodeFever E-Riders level 3, les 6
+//  Game:  Traffic
+
+/**************************************************************************
+  allereerst komt er een stukje code dat direct wordt uitgevoerd bij het opstarten 
+  van de microbit.  Deze code staat niet in een functie, maar gewoon los naast alle functies.
+  Als je in de microbit blocks editor kijkt zie je dat deze code staat in blokje "onStart"
+  ***********************************************************************/
+
+
+//  eerst definiëren we de variabelen
+//  variabele speler is een LedSprite  (uit library Game)
+let speler: game.LedSprite;
+//  alle vijf de tegenliggers (genummerd van nul tot vier) zijn ook ledsprites
+let tegenligger0: game.LedSprite;
+let tegenligger1: game.LedSprite;
+let tegenligger2: game.LedSprite;
+let tegenligger3: game.LedSprite;
+let tegenligger4: game.LedSprite;
+
+//  variabele score zetten we om te beginnen op nul
+let score = 0;
+//  en variabele spelBezig zetten we om te beginnen op false
+let spelBezig = false;
+
+/***********************************************************************
+  in de functie "initialiseer" zetten we enkele variabelen op de juiste waarde om
+  te beginnen.  Dat was ook al gebeurd in het "onStart" blokje, maar een spel 
+  kan ook opnieuw begonnen worden terwijl de microbit aan blijft staan, en dan
+  wordt de onStart-code niet meer uitgevoerd.   Daarom doen we het in de initialiseer
+  functie altijd opnieuw voor de zekerheid.
+  We initialiseer variabele "speler" op een nieuw gecreëerde ledSprite op positie (2,4)
+  De andere initialisaties zijn hetzelfde als in de onStart-code:  score op nul en spelBezig op false
+  ******************************************************************************/
+
+function initialiseer() {
+    speler = game.createSprite(2, 4);
+    score = 0;
+    spelBezig = true;
+}
+
+/***************************************************************************
+Het hoofdprogramma zit in de basic.forever-lus.
+We gaan dus de hele tijd:
+1.  initialiseren
+2.  zolang het spel bezig is  (spelBezig = true) vanalles doen
+3.  als het spel niet meer bezig is de score tonen, en gameOver doen.
+****************************************************************************/
+basic.forever(function () {
+    initialiseer();
+    while (spelBezig) {
+       basic.pause(1000);
+    }
+    game.setScore(score);
+    game.gameOver();
+})
+
+/***************************************************************************
+We hebben voor dit spel maar twee controls:  
+  - linkerknop stuurt je auto naar links
+  - rechterknop stuurt je auto naar rechts
+  allebei heel simpel in de "onButtonPressed" met de juiste parameter
+  we werken nu met de X-positie  property van de ledSprite
+  ALS je nog niet op de uiterste positie staat  (0 voor links en 4 voor rechts)
+     DAN verplaats je nog één positie  (min voor links en plus voor rechts)
+***************************************************************************/
+// beweeg naar links
+input.onButtonPressed(Button.A, function () {
+ if (speler.get(LedSpriteProperty.X) > 0) {
+        speler.change(LedSpriteProperty.X, -1);
+    }
+})
+
+//beweeg naar rechts
+input.onButtonPressed(Button.B, function () {
+ if (speler.get(LedSpriteProperty.X) < 4) {
+        speler.change(LedSpriteProperty.X, 1);
+    }
+})
+
+
+/*********************************************************************
+  nu de tegenliggers.  We werken tegenligger0 uit als voorbeeld, de andere 
+  zijn identiek
+  tegenligger0 moet ook DE HELE TIJD, altijd opnieuw, klaargezet worden,
+  en dan zolang het spel bezig is naar beneden vallen en controleren of er een botsing is.
+*********************************************************************/
+// tegenligger0 doet de hele tijd ...
+basic.forever(function () {
+// 1. 100 milliseconden wachten
+  basic.pause(100)
+// 2. een nieuwe tegenligger0 aanmaken met createSprite.  Op positie (0,0)
+  tegenligger0 = game.createSprite(0, 0)
+// 3. dan even wachten, een willekeurige tijd tussen 0 en 5 seconden
+  basic.pause(Math.randomRange(0, 5000))
+// 4.  zolang het spel bezig is ...
+  while (spelBezig == true) {
+	//  4.1 ALS tegenligger0 op de onderste rij is aangekomen (dus als z'n Y-property 4 is) ...
+	if (tegenligger0.get(LedSpriteProperty.Y) == 4) {
+		//  4.1.1 DAN controleren we of de speler en tegenligger0 mekaar raken 
+		//  ALS ze mekaar raken ...
+		if (speler.isTouching(tegenligger0)) {
+			//  4.1.1.1 DAN zetten we het spel stop  (spelBezig wordt false)
+			spelBezig = false
+		} else {
+			//  4.1.1.2 ANDERS verhogen we de score en zetten we tegenligger0 opnieuw klaar
+			score += 1
+			tegenligger0.set(LedSpriteProperty.Y, 0)
+			basic.pause(Math.randomRange(0, 5000))
+		}  
+	} else {
+		// 4.1.2 ANDERS  ( dus als tegenligger0 nog niet op de onderste rij is)
+		//   gaan we tegenligger0 1 positie naar onder verplaatsen  ( y-property verhogen)
+		tegenligger0.change(LedSpriteProperty.Y, 1)
+		//    en daarna een halve seconde wachten, anders valt ie te snel
+		basic.pause(500)
+	}
+  }
+})
+
+// Code tegenligger1
+basic.forever(function () {
+ basic.pause(100)
+ tegenligger1 = game.createSprite(1, 0)
+ basic.pause(Math.randomRange(0, 5000))
+ while (spelBezig == true) {
+  if (tegenligger1.get(LedSpriteProperty.Y) == 4) {
+   if (speler.isTouching(tegenligger1)) {
+    spelBezig = false
+   } else {
+    score += 1
+    tegenligger1.set(LedSpriteProperty.Y, 0)
+    basic.pause(Math.randomRange(0, 5000))
+   }
+  } else {
+   tegenligger1.change(LedSpriteProperty.Y, 1)
+   basic.pause(500)
+  }
+ }
+})
+
+
+// Code tegenligger2
+basic.forever(function () {
+ basic.pause(100)
+ tegenligger2 = game.createSprite(2, 0)
+ basic.pause(Math.randomRange(0, 5000))
+ while (spelBezig == true) {
+  if (tegenligger2.get(LedSpriteProperty.Y) == 4) {
+   if (speler.isTouching(tegenligger2)) {
+    spelBezig = false
+   } else {
+    score += 1
+    tegenligger2.set(LedSpriteProperty.Y, 0)
+    basic.pause(Math.randomRange(0, 5000))
+   }
+  } else {
+   tegenligger2.change(LedSpriteProperty.Y, 1)
+   basic.pause(500)
+  }
+ }
+})
+
+
+// Code tegenligger3
+basic.forever(function () {
+ basic.pause(100)
+ tegenligger3 = game.createSprite(3, 0)
+ basic.pause(Math.randomRange(0, 5000))
+ while (spelBezig == true) {
+  if (tegenligger3.get(LedSpriteProperty.Y) == 4) {
+   if (speler.isTouching(tegenligger3)) {
+    spelBezig = false
+   } else {
+    score += 1
+    tegenligger3.set(LedSpriteProperty.Y, 0)
+    basic.pause(Math.randomRange(0, 5000))
+   }
+  } else {
+   tegenligger3.change(LedSpriteProperty.Y, 1)
+   basic.pause(500)
+  }
+ }
+})
+
+
+// Code tegenligger4
+basic.forever(function () {
+ basic.pause(100)
+ tegenligger4 = game.createSprite(4, 0)
+ basic.pause(Math.randomRange(0, 5000))
+ while (spelBezig == true) {
+  if (tegenligger4.get(LedSpriteProperty.Y) == 4) {
+   if (speler.isTouching(tegenligger4)) {
+    spelBezig = false
+   } else {
+    score += 1
+    tegenligger4.set(LedSpriteProperty.Y, 0)
+    basic.pause(Math.randomRange(0, 5000))
+   }
+  } else {
+   tegenligger4.change(LedSpriteProperty.Y, 1)
+   basic.pause(500)
+  }
+ }
+})
+          
+        </code></pre>
+			</main>
+			<footer>&copy; 2022 CodeFever</footer>
+		</div>
+
+    
+    <!--  zorg dat je naar het juiste javascript bestand linkt !! -->
+    <script src="../../js/level3_oplossingen/boem_deel1_voorbeeld.js"></script>
+  </body>
+</html>

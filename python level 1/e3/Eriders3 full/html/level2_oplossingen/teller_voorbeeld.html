@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Mijn projecten</title>
+    <link href="../../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+		<div id="container">
+			<header>
+				<nav>
+					<a href="../../index.html"> <img src="../../images/back.png" alt="Ga terug" id="back"/> </a>
+				</nav>
+				<h1>Mijn JavaScript projecten</h1>
+			</header>
+			<main>
+
+				<h1>Hoe snel kan de computer tellen? <!-- vervang dit woord "voorbeeld" door de titel van je oefening --></h1>
+
+        <!--  hier wat uitleg over de oefening  -->
+        <p> We gaan tellen tot in de miljoenen! </p>
+        <p> Zorg voor een invoerveld met ID 'inputDoel', en een label bij dit invoerveld.  Ook nog twee paragrafen met daarin een strong-tag met id's "teller" en  "seconden".  Tenslotte nog een knop  (link!!) met id "startknop"</p>
+        <!--   einde uitleg  -->
+        
+    <!-- in deze div gaan we onze oefening maken, zet hier de tags die je nodig hebt -->
+    <div class="demo_area">
+
+   <p>
+   <!-- maak een label voor input met id "inputDoel" -->
+   <label for="inputDoel">Tot hoeveel miljoen moet ik tellen?</label>
+    <!-- maak een input van type number met id "inputDoel"  -->
+   <input type="number" id="inputDoel"/> 
+  </p>
+ <!-- zet in deze paragraaf een strong tag met id "teller"  -->
+    <p>Ik heb tot <strong id="teller">0</strong> geteld!</p>
+ <!-- zet in deze paragraaf een strong tag met id "teller"  -->
+  <p>Hiervoor had ik <strong id="seconden">0</strong> seconden nodig</p>
+  <!--  en hier nog de knop van klasse "myButton" met id "startknop" -->
+  <a class="myButton" id="startknop">Start</a>
+		
+
+    </div>
+    <!--  hier eindigt onze oefen-div -->
+    
+			</main>
+			<footer>&copy; 2022 CodeFever</footer>
+		</div>
+
+    
+    <!--  zorg dat je naar het juiste javascript bestand linkt !! -->
+    <script src="../../js/level2_oplossingen/teller_voorbeeld.js"></script>
+  </body>
+</html>
