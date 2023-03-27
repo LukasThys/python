@@ -6,3 +6,4 @@ if d==3:
 
 else:
 	print(a+b)
+
