@@ -1,4 +1,4 @@
-ef begroeting():
+def begroeting():
   n=input("naam: ")
   print("dag",n)
 
